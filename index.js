@@ -6,6 +6,9 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import mongoConnect from './src/config/db.js';
+import { login, register } from './src/controllers/userController.js';
+import userRouter from './src/routers/userRouter.js';
 
 // Configuration
 const __filename = fileURLToPath(import.meta.url);
@@ -25,12 +28,21 @@ app.get('/', (req, res) => {
   res.send('Home Route!');
 });
 
+//Auth Routes
+app.post('/api/register', register);
+app.post('/api/login', login);
+
+//User Routes
+app.use('/api/user', userRouter);
+
 //Port
 const PORT = process.env.PORT || 8000;
 
 //Server Listening
 app.listen(PORT, async () => {
   try {
+    //connect with mongodb
+    await mongoConnect();
     console.log(`server listening on port ${PORT}`);
   } catch (err) {
     console.log('err: ', err);
