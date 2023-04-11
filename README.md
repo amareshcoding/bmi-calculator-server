@@ -1,6 +1,8 @@
 ## BMI CALCULATOR SERVER
 
-Both the Server and Client's deployed links are provided in About Section check it out
+Both the Server and Client's deployed links are provided below.
+client: https://bmi-calculator-mern.netlify.app/bmi,
+server: https://bmi-calculator-server.onrender.com/
 
 ### For Local Use : Server
 
