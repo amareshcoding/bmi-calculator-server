@@ -10,6 +10,7 @@ import mongoConnect from './src/config/db.js';
 import { login, logout, register } from './src/controllers/userController.js';
 import userRouter from './src/routers/userRouter.js';
 import bmiRouter from './src/routers/bmiRouter.js';
+import auth from './src/middleware/authMiddleware.js';
 
 // Configuration
 const __filename = fileURLToPath(import.meta.url);
@@ -24,25 +25,15 @@ app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
-//------------------Deployment--------------
-const __dirname1 = path.resolve();
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname1, '/client/build')));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname1, 'client', 'build', 'index.html'));
-  });
-} else {
-  //home route
-  app.get('/', (req, res) => {
-    res.send('Home Route');
-  });
-}
+//home route
+app.get('/', (req, res) => {
+  res.send('Home Route');
+});
 
 //Auth Routes
 app.post('/api/register', register);
 app.post('/api/login', login);
-app.post('/api/logout', logout);
+app.get('/api/logout', auth, logout);
 
 //User Routes
 app.use('/api/user', userRouter);

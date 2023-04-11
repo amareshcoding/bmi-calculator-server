@@ -33,9 +33,11 @@ const bmiCalCulator = async (req, res) => {
 
 //fetching all Bmi history of the user
 const getBmiHistory = async (req, res) => {
+  console.log('hii');
   const userId = req.userId;
   try {
     const bmiHistory = await Bmi.find({ userId: userId });
+    console.log('bmiHistory: ', bmiHistory);
     res.status(200).json(bmiHistory);
   } catch (err) {
     res.status(500).json({

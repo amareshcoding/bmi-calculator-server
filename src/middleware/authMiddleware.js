@@ -29,13 +29,11 @@ const auth = async (req, res, next) => {
       return next();
     } catch (err) {
       //if token is invalid then we will throw an error
-      res.status(401);
-      throw new Error('authorization token is not provided or not valid.');
+      res.status(401).json('authorization token is not provided or not valid.');
     }
   }
   if (!token) {
-    res.status(401);
-    throw new Error('authorization token is not provided or not valid!');
+    res.status(401).json('authorization token is not provided or not valid!');
   }
 };
 
