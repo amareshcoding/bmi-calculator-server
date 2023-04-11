@@ -74,6 +74,27 @@ const login = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  //append a random value (or a random hashed number) to the the middle of the existing token
+  //to make it harder for anyone to reverse it and obtain the previously valid token,
+  try {
+    let randomNumberToAppend = toString(Math.floor(Math.random() * 1000 + 1));
+    let randomIndex = Math.floor(Math.random() * 10 + 1);
+    let hashedRandomNumberToAppend = await bcrypt.hash(
+      randomNumberToAppend,
+      randomIndex
+    );
+
+    // now just concat the hashed random number to the end of the token
+    req.token = req.token + hashedRandomNumberToAppend;
+    return res.status(200).json('logout');
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
 const getProfile = async (req, res) => {
   const { userId } = req.params;
 
@@ -97,4 +118,4 @@ const getProfile = async (req, res) => {
   }
 };
 
-export { register, login, getProfile };
+export { register, login, logout, getProfile };

@@ -2,17 +2,14 @@
 
 ### For Local Use
 ```
-git clone https://github.com/
+git clone https://github.com/amareshcoding/bmi-calculator-server.git
 ```
-
 ```
 cd bmi-calculator-server
 ```
-
 ```
 npm i
 ```
-
 ```
-npm run start:dev
+npm run start
 ```

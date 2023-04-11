@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import mongoConnect from './src/config/db.js';
-import { login, register } from './src/controllers/userController.js';
+import { login, logout, register } from './src/controllers/userController.js';
 import userRouter from './src/routers/userRouter.js';
 
 // Configuration
@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 //Auth Routes
 app.post('/api/register', register);
 app.post('/api/login', login);
+app.post('/api/logout', logout);
 
 //User Routes
 app.use('/api/user', userRouter);
