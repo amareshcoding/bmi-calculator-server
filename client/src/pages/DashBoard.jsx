@@ -7,7 +7,7 @@ import { Table } from 'react-bootstrap';
 
 const DashBoard = () => {
   const [bmiHistory, setBmiHistory] = useState([]);
-  
+  console.log('bmiHistory: ', bmiHistory);
 
   useEffect(() => {
     getBmiHistory();
@@ -47,15 +47,19 @@ const DashBoard = () => {
           </thead>
 
           <tbody>
-            {bmiHistory.map((bmi, i) => (
-              <tr key={bmi._id}>
-                <td>{i + 1}</td>
-                <td>{bmi?.createdAt?.substr(0, 10)}</td>
-                <td>{bmi?.weight}</td>
-                <td>{bmi?.height}</td>
-                <td>{bmi?.bmi}</td>
-              </tr>
-            ))}
+            {bmiHistory.length > 0 ? (
+              bmiHistory.map((bmi, i) => (
+                <tr key={bmi._id}>
+                  <td>{i + 1}</td>
+                  <td>{bmi?.createdAt?.substr(0, 10)}</td>
+                  <td>{bmi?.weight}</td>
+                  <td>{bmi?.height}</td>
+                  <td>{bmi?.bmi}</td>
+                </tr>
+              ))
+            ) : (
+              <h3>No History Found</h3>
+            )}
           </tbody>
         </Table>
       </div>
